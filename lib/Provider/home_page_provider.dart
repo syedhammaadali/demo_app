@@ -15,10 +15,12 @@ class HomePageProvider with ChangeNotifier {
 
   Future<void> fetchData() async {
     try {
-      final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+      final response = await http
+          .get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
       if (response.statusCode == 200) {
         final List<dynamic> responseData = json.decode(response.body);
-        _posts = responseData.map((json) => PostDataParse.fromJson(json)).toList();
+        _posts =
+            responseData.map((json) => PostDataParse.fromJson(json)).toList();
         _isLoading = false;
         notifyListeners();
       } else {
@@ -27,7 +29,7 @@ class HomePageProvider with ChangeNotifier {
     } catch (error) {
       print('Error: $error');
       _isLoading = false;
-      notifyListeners();  
+      notifyListeners();
     }
   }
 }
@@ -42,7 +44,7 @@ class PostDataParse {
 
   factory PostDataParse.fromJson(Map<String, dynamic> json) {
     return PostDataParse(
-      userId: json['userId'], 
+      userId: json['userId'],
       id: json['id'],
       title: json['title'],
       body: json['body'],

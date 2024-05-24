@@ -5,29 +5,30 @@ import 'package:http/http.dart' as http;
 
 class AuthProvider with ChangeNotifier {
   bool _isLoading = false;
-  int? _loggedInUserId; 
+  int? _loggedInUserId;
 
   bool get isLoading => _isLoading;
   int? get loggedInUserId => _loggedInUserId;
 
-  Future<void> login(String email, String password, BuildContext context) async {
+  Future<void> login(
+      String email, String password, BuildContext context) async {
     _setLoading(true);
     final url = Uri.parse('https://jsonplaceholder.typicode.com/users/');
     try {
       final response = await http.get(url);
       final List<dynamic> responseData = json.decode(response.body);
-      
-      final user = responseData.firstWhere((user) => user['email'] == email, orElse: () => null);
-      
+
+      final user = responseData.firstWhere((user) => user['email'] == email,
+          orElse: () => null);
+
       if (user != null) {
         if (user['username'] == password) {
           _loggedInUserId = user['id'];
           _showSnackBar(context, 'Login Successful', Colors.green);
-          _showSnackBar(context, "Logged in user is $_loggedInUserId", Colors.black);
+          _showSnackBar(
+              context, "Logged in user is $_loggedInUserId", Colors.black);
           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+              context, MaterialPageRoute(builder: (context) => HomeScreen()));
         } else {
           _showSnackBar(context, 'Invalid email or password', Colors.red);
         }

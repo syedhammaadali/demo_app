@@ -1,6 +1,7 @@
 import 'package:demo_app/Provider/home_page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'Provider/auth_provider.dart';
 import 'login_screen.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider( create: (_) => HomePageProvider()),
+        ChangeNotifierProvider(create: (_) => HomePageProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
